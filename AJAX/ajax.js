@@ -10,11 +10,11 @@ verseChoose.onchange = function() {
 function updateDisplay(verse) {
      const url =  "http://localhost:8000/"+verse.replace(" ", "").toLowerCase() + ".doc";
      console.log(url);
-     var request = new XMLHttpRequest();
-     request.open('GET', url);
-     request.onload= function() {
-       console.log(`RESPONE: ${request.response}`)
-       poemDisplay.textContent = request.response;
-     }
-     request.send();
+     fetch(url).then(function(response) {
+       response.text().then(function(text){
+         console.log(`RESPONE: ${text}`)
+         poemDisplay.textContent = text;
+       });
+     });
+
 };
